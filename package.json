@@ -27,10 +27,12 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.17",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^10.13.0",
+    "graphql": "^16.7.1",
     "mapbox-gl": "^2.15.0",
     "next": "^13.4.9",
     "next-seo": "^6.1.0",

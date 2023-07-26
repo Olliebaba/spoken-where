@@ -1,11 +1,55 @@
-import Map from '@/components/Map';
+import { gql } from '@apollo/client';
+import { useState } from 'react';
 
-const Index = () => {
+import client from '@/apollo-client';
+import CountriesSelect from '@/components/CountriesSelect';
+
+export interface CountryItem {
+  code: string;
+  name: string;
+  __typename: 'Country';
+}
+
+export interface ListCountries {
+  countries: CountryItem[];
+}
+
+const Index = (props: ListCountries) => {
+  const { countries } = props;
+
+  const [selectedCountry, setSelectedCountry] = useState(
+    countries[0]?.code || '',
+  );
+
   return (
     <div>
-      <Map />
+      <CountriesSelect
+        countries={props.countries}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+      />
     </div>
   );
 };
 
 export default Index;
+
+export async function getServerSideProps(): Promise<{ props: ListCountries }> {
+  const { data } = await client.query({
+    query: gql`
+      query Countries {
+        countries {
+          code
+          name
+          emoji
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      countries: data.countries,
+    },
+  };
+}
