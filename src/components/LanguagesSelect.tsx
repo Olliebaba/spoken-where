@@ -2,12 +2,12 @@ import { Select } from '@chakra-ui/react';
 
 import type { ListCountries } from '@/pages';
 
-interface CountriesSelectProps extends ListCountries {
+interface LanguagesSelectProps extends ListCountries {
   selectedCountry: string;
   setSelectedCountry: (v: string) => void;
 }
 
-const CountriesSelect = (props: CountriesSelectProps) => {
+const LanguagesSelect = (props: LanguagesSelectProps) => {
   const { countries, selectedCountry, setSelectedCountry } = props;
 
   return (
@@ -25,4 +25,4 @@ const CountriesSelect = (props: CountriesSelectProps) => {
   );
 };
 
-export default CountriesSelect;
+export default LanguagesSelect;

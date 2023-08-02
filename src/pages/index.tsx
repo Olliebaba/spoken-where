@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 import client from '@/apollo-client';
 import CountriesSelect from '@/components/CountriesSelect';
+import Map from '@/components/Map';
 
 export interface CountryItem {
   code: string;
+  emoji: string;
   name: string;
   __typename: 'Country';
 }
@@ -28,6 +30,7 @@ const Index = (props: ListCountries) => {
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
       />
+      <Map />
     </div>
   );
 };
@@ -35,7 +38,7 @@ const Index = (props: ListCountries) => {
 export default Index;
 
 export async function getServerSideProps(): Promise<{ props: ListCountries }> {
-  const { data } = await client.query({
+  const { data }: { data: ListCountries } = await client.query({
     query: gql`
       query Countries {
         countries {
@@ -49,7 +52,7 @@ export async function getServerSideProps(): Promise<{ props: ListCountries }> {
 
   return {
     props: {
-      countries: data.countries,
+      countries: [...data.countries].sort((a, b) => (a.name > b.name ? 1 : -1)),
     },
   };
 }
