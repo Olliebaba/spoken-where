@@ -12,6 +12,7 @@ describe('Index page', () => {
       const countries: CountryItem[] = [
         {
           code: 'US',
+          emoji: '🇺🇸',
           name: 'United States',
           __typename: 'Country',
         },
